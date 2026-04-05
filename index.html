@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>아파트 홈페이지·커뮤니티 플랫폼 사업 기획서</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
+  <style>
+    /* ── 기본 리셋 ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #1a2a3a;
+      background: #f5f6f8;
+    }
+
+    /* ── 페이지 래퍼 ─────────────────────────────────── */
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0;
+    }
+
+    /* ── 표지 ─────────────────────────────────────── */
+    .cover {
+      background: #ffffff;
+      color: #1a2a3a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 80px 72px;
+      border-bottom: 3px solid #1a2a3a;
+      page-break-after: always;
+    }
+
+    .cover-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #1a2a3a;
+      opacity: 0.5;
+      margin-bottom: 32px;
+    }
+
+    .cover-title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      opacity: 0.65;
+      margin-bottom: 72px;
+      padding-left: 2px;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      row-gap: 10px;
+      font-size: 14px;
+    }
+
+    .cover-meta .label {
+      font-weight: 600;
+      opacity: 0.6;
+    }
+
+    .cover-meta .value {
+      font-weight: 500;
+    }
+
+    .cover-divider {
+      width: 48px;
+      height: 4px;
+      background: #1a2a3a;
+      margin-bottom: 48px;
+    }
+
+    /* ── 본문 컨테이너 ─────────────────────────────── */
+    .body-content {
+      padding: 64px 72px;
+    }
+
+    /* ── 섹션 ──────────────────────────────────────── */
+    .section {
+      margin-bottom: 60px;
+      page-break-inside: avoid;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      border-left: 4px solid #1a2a3a;
+      padding-left: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-number {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      opacity: 0.45;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* ── 서브섹션 ──────────────────────────────────── */
+    .subsection {
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+
+    .subsection-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e0e4e8;
+    }
+
+    /* ── 단락 ──────────────────────────────────────── */
+    p {
+      margin-bottom: 10px;
+      color: #1a2a3a;
+    }
+
+    /* ── 리스트 ─────────────────────────────────────── */
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    /* ── 표 ─────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: #e9ecef;
+      color: #1a2a3a;
+      font-weight: 700;
+      padding: 11px 14px;
+      text-align: left;
+      border-top: 2px solid #1a2a3a;
+      border-bottom: 1px solid #cdd2d8;
+    }
+
+    tbody td {
+      background: #ffffff;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e8ebee;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 2px solid #1a2a3a;
+    }
+
+    /* ── 인용 박스 (핵심 발언) ──────────────────────── */
+    .quote-block {
+      background: #f8f9fb;
+      border-left: 4px solid #1a2a3a;
+      padding: 14px 18px;
+      margin: 10px 0;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ── 강조 ──────────────────────────────────────── */
+    strong { font-weight: 700; }
+    u { text-decoration: underline; }
+
+    /* ── 흐름 텍스트 보조 박스 ──────────────────────── */
+    .info-box {
+      background: #f0f2f5;
+      border: 1px solid #dde1e6;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+
+    /* ── 워크플로우 ─────────────────────────────────── */
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 14px 0;
+    }
+
+    .workflow-step {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .step-box {
+      background: #e9ecef;
+      border: 1px solid #cdd2d8;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .step-arrow {
+      font-size: 16px;
+      padding: 0 6px;
+      opacity: 0.5;
+    }
+
+    /* ── 인쇄 CSS ──────────────────────────────────── */
+    @media print {
+      body { background: #fff; font-size: 13px; }
+      .page-wrapper { max-width: 100%; }
+      .cover { min-height: auto; padding: 60px 50px; border-bottom: 2px solid #1a2a3a; }
+      .body-content { padding: 40px 50px; }
+      .section { page-break-inside: avoid; }
+      .section:nth-child(n+2) { page-break-before: auto; }
+      @page { size: A4; margin: 15mm 20mm; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ══════════════════════════════════════════════════
+       표지
+  ═══════════════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-label">Business Plan · Confidential</div>
+    <div class="cover-title">아파트 홈페이지·커뮤니티<br>플랫폼 사업 기획서</div>
+    <div class="cover-subtitle">AI + 로펌 기반 아파트 포털 전략</div>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <span class="label">작성자</span>
+      <span class="value">성현우 국장</span>
+      <span class="label">보고 대상</span>
+      <span class="value">천상현 대표님 — 법무법인 더 에이치 황해</span>
+      <span class="label">작성일</span>
+      <span class="value">2026. 04. 05</span>
+      <span class="label">보안 등급</span>
+      <span class="value">대외비</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       본문
+  ═══════════════════════════════════════════════════ -->
+  <div class="body-content">
+
+    <!-- 섹션 1 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 01</span>
+        <span class="section-title">Executive Summary</span>
+      </div>
+
+      <p>아파트너에 미가입된 단지를 주요 대상으로, <strong>AI 기반 홈페이지·커뮤니티 플랫폼을 무료로 제공</strong>함으로써 시장을 선점한다. 플랫폼은 세 가지 핵심 자원을 동시에 확보하는 일석삼조 구조로 설계된다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>축</th>
+              <th>내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>데이터 확보</strong></td>
+              <td>아파트 운영·민원 데이터를 플랫폼에 축적, AI 학습 및 분석 자원으로 활용</td>
+            </tr>
+            <tr>
+              <td><strong>집변 활성화</strong></td>
+              <td>커뮤니티 내 법률 이슈를 집변(법률상담 서비스)과 자동 연결</td>
+            </tr>
+            <tr>
+              <td><strong>닥터H 홍보</strong></td>
+              <td>홈페이지를 통해 하자진단 서비스 닥터H 역량 홍보 및 신규 고객 유입</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>특히 <strong>관리업체 교체 시 인수인계 표준화</strong>는 경쟁사가 제공하지 못하는 핵심 기능이다. 플랫폼이 단지의 "기억"을 보관함으로써 관리업체가 바뀌어도 우리 플랫폼은 남는 구조를 구현, 진정한 <strong>아파트 포털</strong>로 자리잡는다.</p>
+
+      <div class="info-box">
+        <strong>핵심 경쟁우위:</strong> AI 기술력 + 로펌 기반 법률 서비스 — 타 플랫폼이 복제 불가능한 조합
+      </div>
+    </div>
+
+    <!-- 섹션 2 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 02</span>
+        <span class="section-title">시장 현황 분석</span>
+      </div>
+
+      <p>현재 아파트 관리 플랫폼 시장은 아파트너가 1위를 점유하고 있으나, 미가입 단지 및 서비스 취약 단지에 상당한 기회가 존재한다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>현황</th>
+              <th>특징 및 전략적 의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>아파트너 가입 단지</strong></td>
+              <td>4,300+ 단지, 360만 세대</td>
+              <td>시장 1위 — 직접 경쟁 회피, 협력 모델 추진</td>
+            </tr>
+            <tr>
+              <td><strong>아파트아이·녹탁 진입 단지</strong></td>
+              <td>수백 단지 (추정)</td>
+              <td>서비스 수준 낮음 — 교체 공략 대상</td>
+            </tr>
+            <tr>
+              <td><strong>앱 서비스 없는 단지</strong></td>
+              <td>다수 (실태 조사 필요)</td>
+              <td>네이버 카페로 대체 중 — 선점 기회</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">현재 업계 실태</div>
+        <ul>
+          <li>홈페이지를 자체 운영하는 단지는 극소수에 불과하며, 운영·관리 역량 부재가 주된 원인</li>
+          <li>앱 서비스 미도입 단지는 네이버 카페를 대체 수단으로 사용 중이나, 공식성·기능 면에서 한계가 명확</li>
+          <li><strong>관리업체 교체 시 인수인계 프로세스가 업계 전반에 걸쳐 부재</strong> — 데이터 단절 및 서비스 공백 반복</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 섹션 3 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 03</span>
+        <span class="section-title">플랫폼 핵심 기능</span>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">3-1. 공지·공고 시스템</div>
+        <p>입대의(입주자대표회의)가 입주민에게 공식 사항을 안내하는 공식 채널 기능이다.</p>
+        <ul>
+          <li>용역회사 계약 체결 내용, 입찰 업체 목록, 선정 결과 공개</li>
+          <li>대관 업무, 단지 시설 공지사항 게시</li>
+          <li>알림 발송으로 입주민 접근성 확보</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">3-2. 자료 접근 (아카이브)</div>
+        <p>공지와 연결되는 원본 자료를 체계적으로 보관하고 열람 권한을 관리한다.</p>
+        <ul>
+          <li>입대의 회의록, 용역 계약서, 입찰 서류</li>
+          <li>관리비 내역 및 세부 산출 자료</li>
+          <li>문서 버전 관리 및 이력 추적</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">3-3. 커뮤니티 (민원·의견 소통)</div>
+        <p>아파트 생활과 직접 관련된 내용에 한정하여 3자 소통 구조를 운영한다.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>주체</th>
+                <th>역할</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>입주민</td>
+                <td>요청, 제안, 민원 게시</td>
+              </tr>
+              <tr>
+                <td>관리사무소</td>
+                <td>민원 접수 판단, 해결 처리 및 결과 공유</td>
+              </tr>
+              <tr>
+                <td>입대의</td>
+                <td>필요 시 댓글·답변, 최종 의사결정</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>워크플로우에서 생성되는 모든 해결 과정 및 결과 데이터가 자동 축적되어 AI 분석 자원으로 활용된다.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">3-4. AI 관리 (핵심 차별점)</div>
+        <ul>
+          <li>커뮤니티 민원 <strong>자동 분류 및 우선순위 부여</strong></li>
+          <li>반복 민원 패턴 분석으로 예방적 관리 지원</li>
+          <li>관리비 항목 이상 탐지 및 경보</li>
+          <li>법률 이슈 자동 감지 → 집변(법률상담) 연결 안내</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 섹션 4 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 04</span>
+        <span class="section-title">일석삼조 수익 모델</span>
+      </div>
+
+      <p>플랫폼은 <strong>무료 제공</strong>을 기본 정책으로 하되, 세 가지 경로를 통해 실질적 자원을 확보한다. AI 시대에는 운영 비용이 대폭 절감되므로 과거에는 불가능했던 무료 서비스 모델이 현실화된다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>혜택 축</th>
+              <th>메커니즘</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>데이터 확보</strong></td>
+              <td>홈페이지·커뮤니티에서 발생하는 아파트 운영 데이터를 수집·축적</td>
+              <td>AI 모델 학습, 시장 인사이트 자원</td>
+            </tr>
+            <tr>
+              <td><strong>집변 활성화</strong></td>
+              <td>커뮤니티 내 법률 관련 민원·분쟁을 집변 서비스와 자동 연결</td>
+              <td>법률상담 수요 창출</td>
+            </tr>
+            <tr>
+              <td><strong>닥터H 홍보</strong></td>
+              <td>플랫폼 내 하자진단(닥터H) 역량 노출 및 고객 유입 채널로 활용</td>
+              <td>신규 수임 파이프라인</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>비즈니스 원칙:</strong> "이걸 우리가 공짜로 해준 대신에 자원을 받는 거야" — 천상현 대표
+      </div>
+    </div>
+
+    <!-- 섹션 5 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 05</span>
+        <span class="section-title">경쟁 전략</span>
+      </div>
+
+      <p>시장 상황에 따라 세 가지 진입 전략을 병행한다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>전략</th>
+              <th>타깃</th>
+              <th>실행 방법</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>선점 (Pioneer)</strong></td>
+              <td>앱 서비스 없는 단지</td>
+              <td>무료 홈페이지 즉시 제공으로 공백 시장 선점</td>
+            </tr>
+            <tr>
+              <td><strong>교체 (Attack)</strong></td>
+              <td>아파트아이·녹탁 진입 단지</td>
+              <td>AI + 로펌 차별점을 전면에 내세워 전환 유도</td>
+            </tr>
+            <tr>
+              <td><strong>협력 (Avoid)</strong></td>
+              <td>아파트너 가입 단지</td>
+              <td>정면 경쟁 회피, 협력 모델 구축으로 윈윈 추구</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">핵심 차별점</div>
+        <ul>
+          <li><strong>AI 기술력</strong> — 저비용 운영 구조, 민원 자동 분류, 반복 패턴 분석으로 관리 효율화</li>
+          <li><strong>로펌 기반 신뢰도</strong> — 법률 서비스(집변) 및 하자진단(닥터H) 직결 연계는 타 플랫폼이 구현 불가</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <strong>속도 전략:</strong> "우리는 일단 빨리 까는 게 중요하니까" — 초기 영업 속도가 시장 지배력을 결정
+      </div>
+    </div>
+
+    <!-- 섹션 6 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 06</span>
+        <span class="section-title">아파트너 협력 모델</span>
+      </div>
+
+      <p>아파트너를 경쟁자가 아닌 <strong>보완적 파트너</strong>로 설정한다. 서비스 영역을 명확히 분리하여 충돌 없이 협력 기반을 마련한다.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>서비스 영역</th>
+              <th style="text-align:center;">우리 플랫폼</th>
+              <th style="text-align:center;">아파트너</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>홈페이지·커뮤니티</td>
+              <td style="text-align:center;">O</td>
+              <td style="text-align:center;">O</td>
+            </tr>
+            <tr>
+              <td>AI 관리 (민원 분류·분석)</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+              <td style="text-align:center;">X</td>
+            </tr>
+            <tr>
+              <td>법률 서비스 (집변)</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+              <td style="text-align:center;">X</td>
+            </tr>
+            <tr>
+              <td>하자진단 (닥터H)</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+              <td style="text-align:center;">X</td>
+            </tr>
+            <tr>
+              <td>출입 보안 시스템</td>
+              <td style="text-align:center;">X</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+            </tr>
+            <tr>
+              <td>스마트 택배</td>
+              <td style="text-align:center;">X</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+            </tr>
+            <tr>
+              <td>단지 내 장터</td>
+              <td style="text-align:center;">X</td>
+              <td style="text-align:center;"><strong>O</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">협력 구조</div>
+        <ul>
+          <li>우리가 확보한 미가입 단지에 아파트너 서비스를 추천·연결 → 아파트너에 신규 단지 진입 기회 제공</li>
+          <li>서비스 영역 분리 명확화를 통해 경쟁 관계 인식 방지</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">리스크 및 대응</div>
+        <ul>
+          <li><strong>리스크:</strong> 아파트너가 홈페이지·커뮤니티 영역 겹침을 이유로 경쟁자로 인식할 가능성</li>
+          <li><strong>대응:</strong> AI·법률·하자진단 영역의 보완성 강조 + 사전 협의 → 추가 연구 필요</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 섹션 7 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 07</span>
+        <span class="section-title">핵심 틈새 — 관리업체 인수인계 표준화</span>
+      </div>
+
+      <div class="quote-block">
+        "인수인계를 우리가 책임지면, 우리가 정말로 아파트 포털이 될 수가 있어" — 천상현 대표
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">현재 문제</div>
+        <ul>
+          <li>관리업체 교체 시 인수인계 프로세스가 <strong>업계 전반에 걸쳐 아예 부재</strong></li>
+          <li>계약 종료 일정이 되면 전임 업체가 그냥 철수하는 구조</li>
+          <li>계약서상 배치 인력과 실제 현장 투입 인력 불일치 빈번 발생</li>
+          <li>결과적으로 단지의 운영 데이터·히스토리가 관리업체와 함께 소실</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">우리의 해결책</div>
+        <ul>
+          <li>인수인계 표준화 시스템 구축 — 데이터·업무·인력 인수인계를 플랫폼이 중개</li>
+          <li>관리업체 교체 이력, 계약서, 서류 일체를 플랫폼에 영구 보관</li>
+          <li>단지의 "기억"이 플랫폼에 누적되어 업체 교체 후에도 연속성 유지</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <strong>전략적 의미:</strong> 관리업체는 바뀌어도 우리 플랫폼은 남는다 = 진정한 아파트 포털의 조건 충족
+      </div>
+    </div>
+
+    <!-- 섹션 8 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 08</span>
+        <span class="section-title">서대문 센트럴 아이파크 현장 보고</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>일시</strong></td>
+              <td>2026. 04. 05 (일) 임시총회</td>
+            </tr>
+            <tr>
+              <td><strong>임시관리 종료</strong></td>
+              <td>6월 임시관리 종료 예정</td>
+            </tr>
+            <tr>
+              <td><strong>신규 관리업체</strong></td>
+              <td>예주산업 신규 투입 추진 중</td>
+            </tr>
+            <tr>
+              <td><strong>인력 불일치</strong></td>
+              <td>계약서상 인원과 실제 배치 인력 불일치 확인 — 업계 전반적 현상</td>
+            </tr>
+            <tr>
+              <td><strong>인수인계 부재</strong></td>
+              <td>구조적 인수인계 프로세스 부재 재확인</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>본 현장 사례는 섹션 7에서 제시한 <strong>관리업체 인수인계 표준화</strong>의 필요성과 시장 기회를 실증적으로 확인하는 사례다.</p>
+    </div>
+
+    <!-- 섹션 9 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 09</span>
+        <span class="section-title">실행 계획 (Action Items)</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>우선순위</th>
+              <th>과제</th>
+              <th>담당</th>
+              <th>기한</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>긴급</strong></td>
+              <td>서대문 임시총회 결과 보고</td>
+              <td>성현우</td>
+              <td>2026. 04. 05</td>
+            </tr>
+            <tr>
+              <td><strong>최상</strong></td>
+              <td>아파트너 미가입 단지 현황 전수 조사</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td><strong>최상</strong></td>
+              <td>아파트 홈페이지·커뮤니티 MVP 설계</td>
+              <td>성현우</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td><strong>최상</strong></td>
+              <td>관리업체 인수인계 표준화 시스템 설계</td>
+              <td>성현우</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td><strong>상</strong></td>
+              <td>아파트너 협업 모델 연구</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td><strong>상</strong></td>
+              <td>아파트아이·녹탁 진입 단지 현황 조사</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 섹션 10 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">SECTION 10</span>
+        <span class="section-title">대표님 핵심 발언 원문</span>
+      </div>
+
+      <p>본 기획서는 2026. 04. 05 천상현 대표님과의 통화 내용을 기반으로 작성되었다. 주요 발언을 아래에 원문 그대로 기록한다.</p>
+
+      <div class="quote-block">"홈페이지 같은 게 반드시 있어야 돼"</div>
+      <div class="quote-block">"이거야말로 혁신이 일어날 수 있는 영역이 아닌가 싶어"</div>
+      <div class="quote-block">"우리가 압도적인 경쟁력이 있다고 봐. 우리는 AI를 가지고 있고 법률을 로펌이란 말이야"</div>
+      <div class="quote-block">"아파트너가 우리를 경쟁자로 생각하지 않도록 하는 방법은 나는 분명히 있다고 봐"</div>
+      <div class="quote-block">"우리는 일단 빨리 까는 게 중요하니까"</div>
+      <div class="quote-block">"그 틈새를 정확히 봐. 인수인계를 우리가 책임지면, 우리가 정말로 아파트 포털이 될 수가 있어"</div>
+      <div class="quote-block">"이걸 우리가 공짜로 해준 대신에 자원을 받는 거야"</div>
+    </div>
+
+  </div><!-- /body-content -->
+</div><!-- /page-wrapper -->
+</body>
+</html>
